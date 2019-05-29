@@ -1,13 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div class="ui inverted top fixed menu">
+<div class="ui top fixed menu">
   <div class="ui container">
     <a routerLink="/" class="header item">
-      <img class="ui mini image" src="/assets/angular.svg">
-      &nbsp;
-      Okta-Angular Sample Project
+      <img class="ui small image" src="https://images.ctfassets.net/8utyj17y1gom/2JXnJrw79KkQOiOMia8Au2/9cbfc2fda65fa5a2127d5b0668d84765/rogers-brand.png">
     </a>
-    <a class="item" *ngIf="!isAuthenticated" routerLink="/login">Login</a>
+    <a class="item" *ngIf="!isAuthenticated" routerLink="/login">Sign In</a>
+    <a class="item" *ngIf="!isAuthenticated" routerLink="/reg/1">Register Now</a>
     <a id="messages-button" class="item" *ngIf="isAuthenticated" routerLink="/messages"><i aria-hidden="true" class="mail outline icon"></i>Messages</a>
     <a id="profile-button" class="item" *ngIf="isAuthenticated" routerLink="/profile">Profile</a>
     <a id="logout-button" class="item" *ngIf="isAuthenticated" (click)="logout()">Logout</a>

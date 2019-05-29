@@ -32,10 +32,19 @@ export class LoginComponent implements OnInit {
       baseUrl: sampleConfig.oidc.issuer.split('/oauth2')[0],
       clientId: sampleConfig.oidc.clientId,
       redirectUri: sampleConfig.oidc.redirectUri,
-      logo: '/assets/angular.svg',
+      logo: sampleConfig.oidc.logo,
+      features: {
+        rememberMe: true,
+        smsRecovery: true,
+        selfServiceUnlock: true,
+        multiOptionalFactorEnroll: true,
+        registration : true,
+        autoPush: true,
+        router: true,
+      },
       i18n: {
         en: {
-          'primaryauth.title': 'Sign in to Angular & Company',
+          'primaryauth.title': 'Sign in to your Rogers Account',
         },
       },
       authParams: {
@@ -48,6 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.signIn.remove();
     this.signIn.renderEl(
       { el: '#sign-in-widget' },
       () => {

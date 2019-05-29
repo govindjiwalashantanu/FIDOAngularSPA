@@ -1,0 +1,231 @@
+<!--Step One Account Form-->
+
+<div id="okta-sign-in" class="auth-container main-container no-beacon" *ngIf="step=='1'" >
+   <div class="okta-sign-in-header auth-header">
+      <img src="//logo.clearbit.com/rogers.com" class="auth-org-logo">
+      <div data-type="beacon-container" class="beacon-container"></div>
+   </div>
+   <div class="auth-content">
+      <div class="auth-content-inner">
+         <div class="primary-auth">
+            <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepOneForm" (ngSubmit)="onStepOneSubmit()">
+               <div data-se="o-form-content" class="o-form-content o-form-theme clearfix">
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Step {{step}}</h2>
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Account</h2>
+                  <div class="o-form-error-container" data-se="o-form-error-container"></div>
+                  <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
+                     <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
+                           <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
+                           <input class="form-control" id= "accountNo" type="text" placeholder="Rogers Account number" formControlName="accountNo" required> </span>
+                           <div  class="alert alert-danger">
+                            <div *ngIf="regStepOneForm.value.accountNo==''">
+                              <font color="red">AccountNo is required.</font>
+                            </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div  data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
+                           <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
+                           <input type="text" placeholder="Postal Code for your billing address" formControlName="postalCode" required> </span>
+                           <div *ngIf="regStepOneForm.value.postalCode==''">
+                             <font color="red">Postal Code is required.</font>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="o-form-button-bar">
+                  <button class="button button-primary" [disabled]="!regStepOneForm.valid" type="submit">Continue</button>
+               </div>
+            </form>
+            <div class="auth-footer">
+               <a (click)="back()">Back?</a>
+               <!--<a href="" routerLink="/login">Return To Login?</a>-->
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<!--Step Two Email Form-->
+
+<div id="okta-sign-in" class="auth-container main-container no-beacon" *ngIf="step=='2'" >
+   <div class="okta-sign-in-header auth-header">
+      <img src="//logo.clearbit.com/rogers.com" class="auth-org-logo">
+      <div data-type="beacon-container" class="beacon-container"></div>
+   </div>
+   <div class="auth-content">
+      <div class="auth-content-inner">
+         <div class="primary-auth">
+            <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepTwoForm" (ngSubmit)="onStepTwoSubmit()">
+               <div data-se="o-form-content" class="o-form-content o-form-theme clearfix">
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Step {{step}}</h2>
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Email</h2>
+                  <div class="o-form-error-container" data-se="o-form-error-container"></div>
+                  <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
+                     <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
+                           <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
+                           <input type="text" placeholder="Email" formControlName="email" required> </span>
+                           <div *ngIf="regStepTwoForm.value.email==''">
+                             <font color="red">Email is required.</font>
+                           </div>
+                        </div>
+                     </div>
+                     <div  data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
+                           <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
+                           <input type="text" placeholder="Re-enter email" formControlName="confirmEmail" required> </span>
+                           <div *ngIf="regStepTwoForm.value.confirmEmail!=regStepTwoForm.value.email">
+                             <font color="red">Emails do not match.</font>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="o-form-button-bar">
+                  <button class="button button-primary" [disabled]="!regStepTwoForm.valid" type="submit">Continue</button>
+               </div>
+            </form>
+            <div class="auth-footer">
+               <a (click)="back()">Back?</a>
+               <!--<a href="" routerLink="/login">Return To Login?</a>-->
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!--Step Three Verify Form-->
+
+<div id="okta-sign-in" class="auth-container main-container no-beacon" *ngIf="step=='3'" >
+   <div class="okta-sign-in-header auth-header">
+      <img src="//logo.clearbit.com/rogers.com" class="auth-org-logo">
+      <div data-type="beacon-container" class="beacon-container"></div>
+   </div>
+   <div class="auth-content">
+      <div class="auth-content-inner">
+         <div class="primary-auth">
+            <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepTwoForm" (ngSubmit)="onStepTwoSubmit()">
+               <div data-se="o-form-content" class="o-form-content o-form-theme clearfix">
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Step {{step}}</h2>
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Verify</h2>
+                  <div class="o-form-error-container" data-se="o-form-error-container"></div>
+                  <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
+                     <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input">
+                          Verification Email sent to {{regStepTwoForm.value.email}}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="o-form-button-bar">
+                  <button class="button button-primary" type="button" (click)="continue()">Resend Email</button> <br/>
+                  <button class="button button-primary" type="button">Send to a different email</button>
+               </div>
+            </form>
+            <div class="auth-footer">
+               <a (click)="back()">Back?</a>
+               <!--<a href="" routerLink="/login">Return To Login?</a>-->
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!--Step Four Password Form-->
+
+<div id="okta-sign-in" class="auth-container main-container no-beacon" *ngIf="step=='4'" >
+   <div class="okta-sign-in-header auth-header">
+      <img src="//logo.clearbit.com/rogers.com" class="auth-org-logo">
+      <div data-type="beacon-container" class="beacon-container"></div>
+   </div>
+   <div class="auth-content">
+      <div class="auth-content-inner">
+         <div class="primary-auth">
+            <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepFourForm" (ngSubmit)="onStepFourSubmit()">
+               <div data-se="o-form-content" class="o-form-content o-form-theme clearfix">
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Step {{step}}</h2>
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Password</h2>
+                  <div class="o-form-error-container" data-se="o-form-error-container"></div>
+                  <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
+                     <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
+                           <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
+                           <input type="password" placeholder="Password" formControlName="password" required> </span>
+                           <div *ngIf="regStepFourForm.value.password==''">
+                             <font color="red">Password is required.</font>
+                           </div>
+                        </div>
+                     </div>
+                     <div  data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
+                           <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
+                           <input type="password" placeholder="Re-enter password" formControlName="confirmPassword" required> </span>
+                           <div *ngIf="regStepFourForm.value.confirmPassword!=regStepFourForm.value.password">
+                             <font color="red">Passwords do not match.</font>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="o-form-button-bar">
+                  <button class="button button-primary" [disabled]="!regStepFourForm.valid" type="submit">Create Login</button>
+               </div>
+            </form>
+            <div class="auth-footer">
+               <a (click)="back()">Back?</a>
+               <!--<a href="" routerLink="/login">Return To Login?</a>-->
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!--Step Five Confirmation Form-->
+
+<div id="okta-sign-in" class="auth-container main-container no-beacon" *ngIf="step=='5'" >
+   <div class="okta-sign-in-header auth-header">
+      <img src="//logo.clearbit.com/rogers.com" class="auth-org-logo">
+      <div data-type="beacon-container" class="beacon-container"></div>
+   </div>
+   <div class="auth-content">
+      <div class="auth-content-inner">
+         <div class="primary-auth">
+            <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepFourForm" (ngSubmit)="onStepFourSubmit()">
+               <div data-se="o-form-content" class="o-form-content o-form-theme clearfix">
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Step {{step}}</h2>
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Verify</h2>
+                  <div class="o-form-error-container" data-se="o-form-error-container"></div>
+                  <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
+                     <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input">
+                          Thanks for registering!<br/><br/>
+
+                          We've sent you a confirmation email.<br/>
+                          You're now signed in to MyRogers, where you can view and manage your services.
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="o-form-button-bar">
+                  <button class="button button-primary" type="button" (click)="continue()">Go to your Overview</button> <br/>
+               </div>
+            </form>
+            <div class="auth-footer">
+               <a (click)="back()">Back?</a>
+               <!--<a href="" routerLink="/login">Return To Login?</a>-->
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div *ngIf="regStepOneForm.value.accountNo.invalid && (regStepOneForm.value.accountNo.dirty || regStepOneForm.value.accountNo.touched)" class="alert alert-danger">
+ <div *ngIf="regStepOneForm.value.accountNo.errors.required">
+   Name is required.
+ </div>
+</div>
