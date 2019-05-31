@@ -37,7 +37,7 @@
                   </div>
                </div>
                <div class="o-form-button-bar">
-                  <button class="button button-primary" [disabled]="!regStepOneForm.valid" type="submit">Continue</button>
+                  <button class="button button-primary" (click)="(sendUser)" type="submit">Continue</button>
                </div>
             </form>
             <div class="auth-footer">
@@ -109,22 +109,25 @@
    <div class="auth-content">
       <div class="auth-content-inner">
          <div class="primary-auth">
-            <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepTwoForm" (ngSubmit)="onStepTwoSubmit()">
+            <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepThreeForm" (ngSubmit)="onStepThreeSubmit()">
                <div data-se="o-form-content" class="o-form-content o-form-theme clearfix">
                   <h2 data-se="o-form-head" class="okta-form-title o-form-head">Step {{step}}</h2>
-                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Verify</h2>
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Email Code Verification</h2>
                   <div class="o-form-error-container" data-se="o-form-error-container"></div>
                   <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
                      <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
-                        <div data-se="o-form-input-container" class="o-form-input">
-                          Verification Email sent to {{regStepTwoForm.value.email}}
+                        <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
+                           <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
+                           <input type="text" placeholder="code" formControlName="code" required> </span>
                         </div>
+                     </div>
+                     <div  data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+
                      </div>
                   </div>
                </div>
                <div class="o-form-button-bar">
-                  <button class="button button-primary" type="button" (click)="continue()">Resend Email</button> <br/>
-                  <button class="button button-primary" type="button">Send to a different email</button>
+                  <button class="button button-primary" type="submit">Continue</button>
                </div>
             </form>
             <div class="auth-footer">
@@ -134,8 +137,10 @@
          </div>
       </div>
    </div>
+
 </div>
 
+   <div id="widget-container"></div>
 <!--Step Four Password Form-->
 
 <div id="okta-sign-in" class="auth-container main-container no-beacon" *ngIf="step=='4'" >
@@ -187,6 +192,8 @@
 
 <!--Step Five Confirmation Form-->
 
+
+
 <div id="okta-sign-in" class="auth-container main-container no-beacon" *ngIf="step=='5'" >
    <div class="okta-sign-in-header auth-header">
       <img src="//logo.clearbit.com/rogers.com" class="auth-org-logo">
@@ -197,7 +204,44 @@
          <div class="primary-auth">
             <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepFourForm" (ngSubmit)="onStepFourSubmit()">
                <div data-se="o-form-content" class="o-form-content o-form-theme clearfix">
-                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Step {{step}}</h2>
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">TEST {{step}}</h2>
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Verify</h2>
+                  <div class="o-form-error-container" data-se="o-form-error-container"></div>
+                  <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
+                     <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input">
+                          Thanks for registering!<br/><br/>
+
+                          We've sent you a confirmation email.<br/>
+                          You're now signed in to MyRogers, where you can view and manage your services.
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="o-form-button-bar">
+                  <button class="button button-primary" type="button" (click)="continue()">Go to your Overview</button> <br/>
+               </div>
+            </form>
+            <div class="auth-footer">
+               <a (click)="back()">Back?</a>
+               <!--<a href="" routerLink="/login">Return To Login?</a>-->
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div id="okta-sign-in" class="auth-container main-container no-beacon" *ngIf="step==''" >
+   <div class="okta-sign-in-header auth-header">
+      <img src="//logo.clearbit.com/rogers.com" class="auth-org-logo">
+      <div data-type="beacon-container" class="beacon-container"></div>
+   </div>
+   <div class="auth-content">
+      <div class="auth-content-inner">
+         <div class="primary-auth">
+            <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepFourForm" (ngSubmit)="onStepFourSubmit()">
+               <div data-se="o-form-content" class="o-form-content o-form-theme clearfix">
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">TEST {{step}}</h2>
                   <h2 data-se="o-form-head" class="okta-form-title o-form-head">Verify</h2>
                   <div class="o-form-error-container" data-se="o-form-error-container"></div>
                   <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">

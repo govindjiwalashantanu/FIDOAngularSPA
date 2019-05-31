@@ -36,7 +36,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ProfileComponent } from './profile/profile.component';
-import { RegComponent} from './reg/reg.component'
+import { RegComponent} from './reg/reg.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 
 const appRoutes: Routes = [
   {
@@ -65,6 +66,10 @@ const appRoutes: Routes = [
     path: "reg/:step",
     component: RegComponent,
   },
+  {
+    path: "forgot-password",
+    component: ForgotPasswordComponent,
+  }
 ];
 
 @NgModule({
@@ -75,6 +80,7 @@ const appRoutes: Routes = [
     MessagesComponent,
     LoginComponent,
     RegComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

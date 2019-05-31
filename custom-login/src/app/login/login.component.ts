@@ -60,7 +60,10 @@ export class LoginComponent implements OnInit {
     this.signIn.remove();
     this.signIn.renderEl(
       { el: '#sign-in-widget' },
-      () => {
+      (res) => {
+        console.log("#######################")
+        console.log(res)
+        console.log("#######################")
         /**
          * In this flow, the success handler will not be called because we redirect
          * to the Okta org for the authentication workflow.
