@@ -114,7 +114,6 @@ onStepThreeSubmit() {
   console.log(code);
 
     var signIn = new OktaSignIn({baseUrl: 'https://pocrogers.okta.com',
-    baseUrl: sampleConfig.oidc.issuer.split('/oauth2')[0],
     clientId: sampleConfig.oidc.clientId,
     redirectUri: sampleConfig.oidc.redirectUri,
     logo: sampleConfig.oidc.logo,
