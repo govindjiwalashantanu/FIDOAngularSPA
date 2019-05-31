@@ -77,10 +77,11 @@ export class RegComponent implements OnInit {
     // TODO: Use EventEmitter with form value
     this.user.accountNo = this.regStepOneForm.value.accountNo;
     this.user.postalCode = this.regStepOneForm.value.postalCode;
-    this.user.planId = "Generated PlanId";
+    //this.user.planId = "Generated PlanId";
     console.log(this.user);
     this.http.get("https://selfregistration-demo.glitch.me/").subscribe((data: any) => {
-      console.log(data);
+      console.log("planIDDDDDDDDDD======>>>>>>"+data.commands[1].value.planId);
+      this.user.planId = data.commands[1].value.planId;
     });
     this.step ++;
 
