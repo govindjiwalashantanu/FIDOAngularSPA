@@ -142,7 +142,7 @@ onStepThreeSubmit() {
       el: '#widget-container'
     }, function success(res) {
       if (res.status === 'SUCCESS') {
-
+        this.step++;
       } else {
         console.log(res.status)
         window.alert(res.status)
