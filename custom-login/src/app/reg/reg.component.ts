@@ -14,9 +14,10 @@ import { Component, OnInit } from '@angular/core';
 import sampleConfig from '../.samples.config';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { ActivatedRoute } from "@angular/router";
 import * as OktaSignIn from '@okta/okta-signin-widget';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-reg',
@@ -64,7 +65,7 @@ export class RegComponent implements OnInit {
   sendUser(){
     console.log("SNEFNONFOINOISNBFUOUIFBSUIFHIUFHUI")
     var email = $('input[formcontrolname="email"]').val()
-    $.ajax({
+    $({
       url: "https://reset-password-okta.glitch.me/activateUser",
       data: {
         "email": email
@@ -94,12 +95,7 @@ export class RegComponent implements OnInit {
     console.log(this.user);
     this.step ++;
 
-    /*this.http.get("https://selfregistration-demo.glitch.me/").subscribe((data: any) => {
-    console.log(this.model);
-  }, (err) => {
-  console.error(err);
-  this.failed = true;
-});*/
+
 
 }
 
@@ -107,23 +103,31 @@ onStepTwoSubmit() {
   var email = $('input[formcontrolname="email"]').val()
   this.user.email = email
   this.user.login = email
-  $.ajax({
-    url: "https://reset-password-okta.glitch.me/activateUser",
-    data: {
-      email: email,
-      accountNumber: this.user.accountNo,
-      postalCode: this.user.postalCode
+  // $.ajax({
+  //   url: "https://reset-password-okta.glitch.me/activateUser",
+  //   data: {
+  //     email: email,
+  //     accountNumber: this.user.accountNo,
+  //     postalCode: this.user.postalCode
+  //
+  //   },
+  //   cache: false,
+  //   type: "get",
+  //   success: function(response) {
+  //     console.log(response)
+  //   },
+  //   error: function(xhr) {
+  //
+  //   }
+  // });
+  const data = new HttpParams()
+      .set('email', email)
+      .set('accountNumber', this.user.accountNo)
+      .set('postalCode', this.user.postalCode);
+      this.http.post<any>("https://reset-password-okta.glitch.me/activateUser", data).subscribe(response => {
+        console.log(response)
+      })
 
-    },
-    cache: false,
-    type: "get",
-    success: function(response) {
-      console.log(response)
-    },
-    error: function(xhr) {
-
-    }
-  });
   console.log(this.user);
   this.step ++;
 
