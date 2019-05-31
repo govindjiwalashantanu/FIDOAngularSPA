@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
       i18n: {
         en: {
           'primaryauth.title': 'Sign in to your Rogers Account',
+          'registration.signup.label': 'New to Rogers?'
         },
       },
       authParams: {
