@@ -17,6 +17,7 @@ import { Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { ActivatedRoute } from "@angular/router";
 import * as OktaSignIn from '@okta/okta-signin-widget';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-reg',
@@ -51,15 +52,11 @@ export class RegComponent implements OnInit {
 
   oktaAuth:any;
 
+  resetToken: any;
+
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute) {
     this.step = '1';
 
-  }
-
-  ngOnInit() {
-    this.step = '1';
-    this.step = this.route.snapshot.paramMap.get("step")
-    if(!this.step)this.step='1';
   }
 
   back(){
@@ -136,7 +133,9 @@ onStepThreeSubmit() {
     recoveryToken: code,
     i18n: {
     en: {
-      'primaryauth.title': 'Set Your Password'
+      'primaryauth.title': 'Set Your Password',
+      'password.reset': 'Set your Password',
+      'password.reset.title': 'Set your Password'
     }
   }});
     signIn.renderEl({
@@ -157,11 +156,71 @@ onStepThreeSubmit() {
   //this.step ++;
 }
 
-onStepFourSubmit(){
+ngOnInit() {
+  this.step = '1';
+  this.step = this.route.snapshot.paramMap.get("step")
+  if(!this.step)this.step='1';
+  console.log(this.step);
+  this.route.queryParams
+    .filter(params => params.resetToken)
+    .subscribe(params => {
+      console.log(params); // {order: "popular"}
+
+      this.resetToken = params.resetToken;
+      console.log(this.resetToken); // popular
+    });
+    if(this.resetToken){
+      this.step = '0';
+      var signIn = new OktaSignIn({baseUrl: 'https://pocrogers.okta.com',
+        clientId: sampleConfig.oidc.clientId,
+        redirectUri: sampleConfig.oidc.redirectUri,
+        logo: sampleConfig.oidc.logo,
+        features: {
+          rememberMe: true,
+          smsRecovery: true,
+          selfServiceUnlock: true,
+          multiOptionalFactorEnroll: true,
+          registration : true,
+          autoPush: true,
+          router: true,
+        },
+        authParams: {
+          responseType: ['id_token', 'token'],
+          issuer: sampleConfig.oidc.issuer,
+          display: 'page',
+          scopes: sampleConfig.oidc.scope.split(' '),
+        },
+        recoveryToken: this.resetToken,
+        i18n: {
+        en: {
+          'primaryauth.title': 'Set Your Password',
+          'password.reset': 'Set your Password',
+          'password.reset.title': 'Set your Password'
+        }
+      }});
+      signIn.renderEl({
+        el: '#widget-container'
+      }, function success(res) {
+        if (res.status === 'SUCCESS') {
+
+        } else {
+          console.log(res.status)
+          window.alert(res.status)
+          this.step ++
+          // The user can be in another authentication state that requires further action.
+          // For more information about these states, see:
+          //   https://github.com/okta/okta-signin-widget#rendereloptions-success-error
+        }
+      });
+
+    }
+}
+
+/*onStepFourSubmit(){
   this.user.password = this.regStepFourForm.value.password;
   console.log(this.user);
   this.step++;
   //TODO: call update user to add password
-}
+}*/
 
 }
