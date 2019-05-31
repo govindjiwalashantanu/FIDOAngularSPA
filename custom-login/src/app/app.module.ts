@@ -21,6 +21,7 @@ import {
   OktaAuthModule,
   OktaCallbackComponent,
 } from '@okta/okta-angular';
+import * as $ from 'jquery';
 
 import sampleConfig from './.samples.config';
 

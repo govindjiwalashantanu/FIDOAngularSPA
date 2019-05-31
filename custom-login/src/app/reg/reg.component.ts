@@ -16,6 +16,7 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from "@angular/router";
+import * as OktaSignIn from '@okta/okta-signin-widget';
 
 @Component({
   selector: 'app-reg',
