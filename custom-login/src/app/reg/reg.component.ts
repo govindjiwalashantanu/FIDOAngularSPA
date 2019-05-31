@@ -17,7 +17,6 @@ import { Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { ActivatedRoute } from "@angular/router";
 import * as OktaSignIn from '@okta/okta-signin-widget';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-reg',
@@ -47,8 +46,14 @@ export class RegComponent implements OnInit {
   user: any = {};
 
   step: any;
+
+  sessionToken: any;
+
+  oktaAuth:any;
+
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute) {
     this.step = '1';
+
   }
 
   ngOnInit() {
@@ -60,25 +65,6 @@ export class RegComponent implements OnInit {
   back(){
     if(this.step=='1') return;
     this.step--;
-  }
-
-  sendUser(){
-    console.log("SNEFNONFOINOISNBFUOUIFBSUIFHIUFHUI")
-    var email = $('input[formcontrolname="email"]').val()
-    $({
-      url: "https://reset-password-okta.glitch.me/activateUser",
-      data: {
-        "email": email
-      },
-      cache: false,
-      type: "get",
-      success: function(response) {
-        console.log(response)
-      },
-      error: function(xhr) {
-
-      }
-    });
   }
 
   continue(){
@@ -93,6 +79,9 @@ export class RegComponent implements OnInit {
     this.user.postalCode = this.regStepOneForm.value.postalCode;
     this.user.planId = "Generated PlanId";
     console.log(this.user);
+    this.http.get("https://selfregistration-demo.glitch.me/").subscribe((data: any) => {
+      console.log(data);
+    });
     this.step ++;
 
 
@@ -100,45 +89,50 @@ export class RegComponent implements OnInit {
 }
 
 onStepTwoSubmit() {
-  var email = $('input[formcontrolname="email"]').val()
-  this.user.email = email
-  this.user.login = email
-  // $.ajax({
-  //   url: "https://reset-password-okta.glitch.me/activateUser",
-  //   data: {
-  //     email: email,
-  //     accountNumber: this.user.accountNo,
-  //     postalCode: this.user.postalCode
-  //
-  //   },
-  //   cache: false,
-  //   type: "get",
-  //   success: function(response) {
-  //     console.log(response)
-  //   },
-  //   error: function(xhr) {
-  //
-  //   }
-  // });
+  var email = this.regStepTwoForm.value.email;
+  this.user.email = email;
+  this.user.login = email;
+
   const data = new HttpParams()
       .set('email', email)
       .set('accountNumber', this.user.accountNo)
-      .set('postalCode', this.user.postalCode);
-      this.http.post<any>("https://reset-password-okta.glitch.me/activateUser", data).subscribe(response => {
-        console.log(response)
-      })
+      .set('postalCode', this.user.postalCode)
+      .set('planId', this.user.planId);
 
-  console.log(this.user);
+  this.http.post<any>("https://reset-password-okta.glitch.me/activateUser", data).subscribe(response => {
+        console.log(response);
+  })
   this.step ++;
+  console.log(this.user);
+
 
 }
 
 onStepThreeSubmit() {
-  window.alert("CHEEKY")
-  var code = $('input[formcontrolname="code"]').val()
-  $(document).ready(function(){
+  //window.alert("CHEEKY")
+  var code = this.regStepThreeForm.value.code;
+  console.log(code);
+
     var signIn = new OktaSignIn({baseUrl: 'https://pocrogers.okta.com',
+    baseUrl: sampleConfig.oidc.issuer.split('/oauth2')[0],
+    clientId: sampleConfig.oidc.clientId,
+    redirectUri: sampleConfig.oidc.redirectUri,
     logo: sampleConfig.oidc.logo,
+    features: {
+      rememberMe: true,
+      smsRecovery: true,
+      selfServiceUnlock: true,
+      multiOptionalFactorEnroll: true,
+      registration : true,
+      autoPush: true,
+      router: true,
+    },
+    authParams: {
+      responseType: ['id_token', 'token'],
+      issuer: sampleConfig.oidc.issuer,
+      display: 'page',
+      scopes: sampleConfig.oidc.scope.split(' '),
+    },
     recoveryToken: code,
     i18n: {
     en: {
@@ -149,8 +143,7 @@ onStepThreeSubmit() {
       el: '#widget-container'
     }, function success(res) {
       if (res.status === 'SUCCESS') {
-        console.log('Do something with this sessionToken', res.session.token);
-        res.session.setCookieAndRedirect('http://localhost:8080/login');
+
       } else {
         console.log(res.status)
         window.alert(res.status)
@@ -160,7 +153,6 @@ onStepThreeSubmit() {
         //   https://github.com/okta/okta-signin-widget#rendereloptions-success-error
       }
     });
-  });
 
   //this.step ++;
 }

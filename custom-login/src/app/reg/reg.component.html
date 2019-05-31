@@ -37,7 +37,7 @@
                   </div>
                </div>
                <div class="o-form-button-bar">
-                  <button class="button button-primary" (click)="(sendUser)" type="submit">Continue</button>
+                  <button class="button button-primary" [disabled]="!regStepOneForm.valid" type="submit">Continue</button>
                </div>
             </form>
             <div class="auth-footer">
@@ -140,7 +140,7 @@
 
 </div>
 
-   <div id="widget-container"></div>
+
 <!--Step Four Password Form-->
 
 <div id="okta-sign-in" class="auth-container main-container no-beacon" *ngIf="step=='4'" >
@@ -205,7 +205,7 @@
             <form data-se="o-form" id="form16" class="primary-auth-form o-form o-form-edit-mode" [formGroup]="regStepFourForm" (ngSubmit)="onStepFourSubmit()">
                <div data-se="o-form-content" class="o-form-content o-form-theme clearfix">
                   <h2 data-se="o-form-head" class="okta-form-title o-form-head">TEST {{step}}</h2>
-                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Verify</h2>
+                  <h2 data-se="o-form-head" class="okta-form-title o-form-head">Confirmation!!</h2>
                   <div class="o-form-error-container" data-se="o-form-error-container"></div>
                   <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
                      <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
@@ -256,7 +256,7 @@
                   </div>
                </div>
                <div class="o-form-button-bar">
-                  <button class="button button-primary" type="button" (click)="continue()">Go to your Overview</button> <br/>
+                  <button class="button button-primary" type="button" (click)="goToOverview()">Go to your Overview</button> <br/>
                </div>
             </form>
             <div class="auth-footer">
