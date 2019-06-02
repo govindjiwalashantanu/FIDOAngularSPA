@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
       logo: sampleConfig.oidc.logo,
       features: {
         rememberMe: true,
-        smsRecovery: true,
         selfServiceUnlock: true,
         multiOptionalFactorEnroll: true,
         registration : true,
@@ -45,7 +44,9 @@ export class LoginComponent implements OnInit {
       i18n: {
         en: {
           'primaryauth.title': 'Sign in to your Rogers Account',
-          'registration.signup.label': 'New to Rogers?'
+          'registration.signup.label': 'New to Rogers?',
+          'password.forgot.email.or.username.placeholder': 'Email or Phone Number',
+          'password.forgot.email.or.username.tooltip': 'Email or Phone Number'
         },
       },
       authParams: {

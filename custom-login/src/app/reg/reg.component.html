@@ -28,7 +28,7 @@
                      <div  data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
                         <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
                            <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
-                           <input type="text" placeholder="Postal Code for your billing address" formControlName="postalCode" required> </span>
+                           <input type="text" placeholder="Postal Code for your billing address" formControlName="postalCode" minlength="6" maxlength="6" required> </span>
                            <div *ngIf="regStepOneForm.value.postalCode==''">
                              <font color="red">Postal Code is required.</font>
                            </div>
@@ -78,7 +78,7 @@
                      <div  data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
                         <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
                            <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
-                           <input type="text" placeholder="Phone Number" formControlName="phoneNumber" required> </span>
+                           <input type="text" placeholder="Phone Number" formControlName="phoneNumber" minlength="10" maxlength="10" required> </span>
                            <div *ngIf="regStepTwoForm.value.phoneNumber==''">
                              <font color="red">Phone Number is required.</font>
                            </div>
@@ -98,6 +98,8 @@
       </div>
    </div>
 </div>
+
+{{regStepTwoForm.valid}}
 
 <!--Step Three Verify Form-->
 
@@ -137,7 +139,7 @@
                </div>
                <div class="o-form-button-bar">
                   <button class="button button-primary" type="submit">Continue</button><br/>
-                  <button class="button button-primary" type="button">Resend Email</button>
+                  <button class="button button-primary" type="button" (click)="resendEmail()">Resend Email</button>
                </div>
             </form>
             <div class="auth-footer">

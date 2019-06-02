@@ -27,12 +27,12 @@ import 'rxjs/add/operator/filter';
 export class RegComponent implements OnInit {
   regStepOneForm = this.fb.group({
     accountNo: ['',Validators.required],
-    postalCode: ['',Validators.required],
+    postalCode: ['',[Validators.required, Validators.maxLength(6), Validators.minLength(6)]],
   });
 
   regStepTwoForm = this.fb.group({
     email: ['',[Validators.required, Validators.email]],
-    phoneNumber: ['',[Validators.required]],
+    phoneNumber: ['',[Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
   });
 
   regStepThreeForm = this.fb.group({
@@ -81,10 +81,7 @@ export class RegComponent implements OnInit {
       this.user.planId = data.commands[1].value.planId;
     });
     this.step ++;
-
-
-
-}
+  }
 
 onStepTwoSubmit() {
   this.user.email = this.regStepTwoForm.value.email;
@@ -95,7 +92,7 @@ onStepTwoSubmit() {
       .set('accountNumber', this.user.accountNo)
       .set('postalCode', this.user.postalCode)
       .set('planId', this.user.planId)
-      .set('login', this.user.phoneNumber);
+      .set('login', this.user.login);
 
   this.http.post<any>("https://reset-password-okta.glitch.me/activateUser", data).subscribe(response => {
         console.log(response);
@@ -104,6 +101,19 @@ onStepTwoSubmit() {
   console.log(this.user);
 
 
+}
+
+resendEmail(){
+  this.user.login = this.regStepTwoForm.value.phoneNumber;
+  console.log("IAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEE");
+  const data = new HttpParams()
+      .set('login', this.user.login);
+
+  this.http.post<any>("https://reset-password-okta.glitch.me/resendEmail", data).subscribe(response => {
+        console.log(response);
+  })
+  //this.step ++;
+  console.log(this.user);
 }
 
 onStepThreeSubmit() {
