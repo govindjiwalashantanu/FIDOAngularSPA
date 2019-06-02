@@ -78,9 +78,9 @@
                      <div  data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
                         <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
                            <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
-                           <input type="text" placeholder="Re-enter email" formControlName="confirmEmail" required> </span>
-                           <div *ngIf="regStepTwoForm.value.confirmEmail!=regStepTwoForm.value.email">
-                             <font color="red">Emails do not match.</font>
+                           <input type="text" placeholder="Phone Number" formControlName="phoneNumber" required> </span>
+                           <div *ngIf="regStepTwoForm.value.phoneNumber==''">
+                             <font color="red">Phone Number is required.</font>
                            </div>
                         </div>
                      </div>
@@ -116,6 +116,15 @@
                   <div class="o-form-error-container" data-se="o-form-error-container"></div>
                   <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
                      <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
+                        <div data-se="o-form-input-container" class="o-form-input">
+                          In the email we just sent you, copy the code to complete your registration.<br/><br/>
+
+                          Message sent to {{regStepTwoForm.value.email}}<br/>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="o-form-fieldset-container" data-se="o-form-fieldset-container">
+                     <div data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
                         <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
                            <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
                            <input type="text" placeholder="code" formControlName="code" required> </span>
@@ -127,7 +136,8 @@
                   </div>
                </div>
                <div class="o-form-button-bar">
-                  <button class="button button-primary" type="submit">Continue</button>
+                  <button class="button button-primary" type="submit">Continue</button><br/>
+                  <button class="button button-primary" type="button">Resend Email</button>
                </div>
             </form>
             <div class="auth-footer">
@@ -268,8 +278,4 @@
    </div>
 </div>
 
-<div *ngIf="regStepOneForm.value.accountNo.invalid && (regStepOneForm.value.accountNo.dirty || regStepOneForm.value.accountNo.touched)" class="alert alert-danger">
- <div *ngIf="regStepOneForm.value.accountNo.errors.required">
-   Name is required.
- </div>
-</div>
+<div id="widget-container"></div>

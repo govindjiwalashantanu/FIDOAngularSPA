@@ -1,8 +1,13 @@
-:host /deep/ #okta-sign-in.auth-container .button {
-  background: linear-gradient(#e47636, #e47636);
+:host /deep/ #okta-sign-in {
+  width:800px;
+}
 
+:host /deep/ #okta-sign-in.auth-container .button {
+  background: linear-gradient(#e47636, #caae26);
+  width: 20em;
+  height: 4em;
 }
 
 :host /deep/ #okta-sign-in.auth-container .button-primary:hover, #okta-sign-in.auth-container .button-primary:focus, #okta-sign-in.auth-container .button-primary:active, #okta-sign-in.auth-container .button-primary:focus{
-  background: linear-gradient(#e47636, #e47636);
+  background: linear-gradient(#e47636, #caae26);
 }

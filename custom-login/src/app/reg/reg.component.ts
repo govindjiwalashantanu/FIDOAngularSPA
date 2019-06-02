@@ -32,7 +32,7 @@ export class RegComponent implements OnInit {
 
   regStepTwoForm = this.fb.group({
     email: ['',[Validators.required, Validators.email]],
-    confirmEmail: ['',[Validators.required, Validators.email]]
+    phoneNumber: ['',[Validators.required]],
   });
 
   regStepThreeForm = this.fb.group({
@@ -87,15 +87,15 @@ export class RegComponent implements OnInit {
 }
 
 onStepTwoSubmit() {
-  var email = this.regStepTwoForm.value.email;
-  this.user.email = email;
-  this.user.login = email;
+  this.user.email = this.regStepTwoForm.value.email;
+  this.user.login = this.regStepTwoForm.value.phoneNumber;
 
   const data = new HttpParams()
-      .set('email', email)
+      .set('email', this.regStepTwoForm.value.email)
       .set('accountNumber', this.user.accountNo)
       .set('postalCode', this.user.postalCode)
-      .set('planId', this.user.planId);
+      .set('planId', this.user.planId)
+      .set('login', this.user.phoneNumber);
 
   this.http.post<any>("https://reset-password-okta.glitch.me/activateUser", data).subscribe(response => {
         console.log(response);
@@ -111,7 +111,7 @@ onStepThreeSubmit() {
   var code = this.regStepThreeForm.value.code;
   console.log(code);
 
-    var signIn = new OktaSignIn({baseUrl: 'https://pocrogers.okta.com',
+    var eSignIn = new OktaSignIn({baseUrl: 'https://pocrogers.okta.com',
     clientId: sampleConfig.oidc.clientId,
     redirectUri: sampleConfig.oidc.redirectUri,
     logo: sampleConfig.oidc.logo,
@@ -138,7 +138,7 @@ onStepThreeSubmit() {
       'password.reset.title': 'Set your Password'
     }
   }});
-    signIn.renderEl({
+    eSignIn.renderEl({
       el: '#widget-container'
     }, function success(res) {
       if (res.status === 'SUCCESS') {
@@ -171,7 +171,7 @@ ngOnInit() {
     });
     if(this.resetToken){
       this.step = '0';
-      var signIn = new OktaSignIn({baseUrl: 'https://pocrogers.okta.com',
+      var rSignIn = new OktaSignIn({baseUrl: 'https://pocrogers.okta.com',
         clientId: sampleConfig.oidc.clientId,
         redirectUri: sampleConfig.oidc.redirectUri,
         logo: sampleConfig.oidc.logo,
@@ -198,7 +198,7 @@ ngOnInit() {
           'password.reset.title': 'Set your Password'
         }
       }});
-      signIn.renderEl({
+      rSignIn.renderEl({
         el: '#widget-container'
       }, function success(res) {
         if (res.status === 'SUCCESS') {
