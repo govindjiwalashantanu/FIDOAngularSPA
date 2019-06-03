@@ -114,6 +114,7 @@ onStepTwoSubmit() {
       .set('login', this.user.login);
 
   this.http.post<any>("https://reset-password-okta.glitch.me/activateUser", data).subscribe(response => {
+
     if(response.error) {
       window.alert(response.error)
     } else {
@@ -121,7 +122,7 @@ onStepTwoSubmit() {
       console.log(this.user);
     }
   })
-  this.step ++;
+  //this.step ++;
   console.log(this.user);
 
 
