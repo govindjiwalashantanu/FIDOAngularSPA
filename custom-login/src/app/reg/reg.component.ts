@@ -90,7 +90,7 @@ export class RegComponent implements OnInit {
 }
 
 resendEmail(){
-  this.user.login = this.regStepTwoForm.value.phoneNumber;
+  this.user.login = this.regStepTwoForm.value.email;
   console.log("IAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEE");
   const data = new HttpParams()
       .set('login', this.user.login);
