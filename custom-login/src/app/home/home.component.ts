@@ -12,6 +12,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
+import sampleConfig from '../.samples.config';
+declare let OktaAuth : any;
 
 interface ResourceServerExample {
   label: String;
@@ -47,6 +49,40 @@ export class HomeComponent implements OnInit {
     if (this.isAuthenticated) {
       const userClaims = await this.oktaAuth.getUser();
       this.userName = userClaims.name;
+    }else{
+
+      var config = {
+      url: 'https://pocrogers.okta.com',
+
+      // Optional config
+      issuer: 'https://pocrogers.okta.com/oauth2/default',
+      clientId: sampleConfig.oidc.clientId,
+      redirectUri: sampleConfig.oidc.redirectUri,
+
+      // Override the default authorize and userinfo URLs
+      authorizeUrl: 'https://pocrogers.okta.com/oauth2/default/v1/authorize',
+      userinfoUrl: 'https://pocrogers.okta.com/oauth2/default/v1/userinfo',
+
+      // TokenManager config
+      tokenManager: {
+        storage: 'sessionStorage'
+      }
+      };
+      //console.log(config);
+
+      var authClient = new OktaAuth(config);
+      console.log(authClient);
+
+      authClient.token.getWithoutPrompt({
+        responseType: ['id_token','token'] // or array of types
+      })
+      .then(function(tokenOrTokens) {
+        //console.log("I AM HERE");
+        window.location.href = "/oktaLogin"
+      })
+      .catch(function(err) {
+        // handle OAuthError
+      });
     }
   }
 }

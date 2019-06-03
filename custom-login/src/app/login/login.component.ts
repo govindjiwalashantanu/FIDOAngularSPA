@@ -46,7 +46,8 @@ export class LoginComponent implements OnInit {
           'primaryauth.title': 'Sign in to your Rogers Account',
           'registration.signup.label': 'New to Rogers?',
           'password.forgot.email.or.username.placeholder': 'Email or Phone Number',
-          'password.forgot.email.or.username.tooltip': 'Email or Phone Number'
+          'password.forgot.email.or.username.tooltip': 'Email or Phone Number',
+          'password.forgot.emailSent.desc' : 'An Email has been sent to {0} with instructions on resetting your password. Click on Use Recovery Token link in the email to change your password.'
         },
       },
       authParams: {

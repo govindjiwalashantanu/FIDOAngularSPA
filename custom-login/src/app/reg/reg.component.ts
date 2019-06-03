@@ -59,6 +59,9 @@ export class RegComponent implements OnInit {
 
   }
 
+  // convenience getter for easy access to form fields
+    get f() { return this.regStepOneForm.controls; }
+
   back(){
     if(this.step=='1') return;
     this.step--;
@@ -81,7 +84,23 @@ export class RegComponent implements OnInit {
       this.user.planId = data.commands[1].value.planId;
     });
     this.step ++;
-  }
+
+
+
+}
+
+resendEmail(){
+  this.user.login = this.regStepTwoForm.value.phoneNumber;
+  console.log("IAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEE");
+  const data = new HttpParams()
+      .set('login', this.user.login);
+
+  this.http.post<any>("https://reset-password-okta.glitch.me/resendEmail", data).subscribe(response => {
+        console.log(response);
+  })
+  //this.step ++;
+  console.log(this.user);
+}
 
 onStepTwoSubmit() {
   this.user.email = this.regStepTwoForm.value.email;
@@ -101,19 +120,6 @@ onStepTwoSubmit() {
   console.log(this.user);
 
 
-}
-
-resendEmail(){
-  this.user.login = this.regStepTwoForm.value.phoneNumber;
-  console.log("IAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEEIAMHEREEEEEEEEEEEEEEEEEEEE");
-  const data = new HttpParams()
-      .set('login', this.user.login);
-
-  this.http.post<any>("https://reset-password-okta.glitch.me/resendEmail", data).subscribe(response => {
-        console.log(response);
-  })
-  //this.step ++;
-  console.log(this.user);
 }
 
 onStepThreeSubmit() {
@@ -145,7 +151,10 @@ onStepThreeSubmit() {
     en: {
       'primaryauth.title': 'Set Your Password',
       'password.reset': 'Set your Password',
-      'password.reset.title': 'Set your Password'
+      'password.reset.title': 'Set your Password',
+      'password.forgot.email.or.username.placeholder': 'Email or Phone Number',
+      'password.forgot.email.or.username.tooltip': 'Email or Phone Number',
+      'password.forgot.emailSent.desc' : 'An Email has been sent to {0} with instructions on resetting your password. Click on Use Recovery Token link in the email to change your password.'
     }
   }});
     eSignIn.renderEl({
@@ -177,10 +186,11 @@ ngOnInit() {
       console.log(params); // {order: "popular"}
 
       this.resetToken = params.resetToken;
-      console.log(this.resetToken); // popular
+      // popular
     });
     if(this.resetToken){
-      this.step = '0';
+      console.log(this.resetToken);
+      this.step='0';
       var rSignIn = new OktaSignIn({baseUrl: 'https://pocrogers.okta.com',
         clientId: sampleConfig.oidc.clientId,
         redirectUri: sampleConfig.oidc.redirectUri,
@@ -192,7 +202,6 @@ ngOnInit() {
           multiOptionalFactorEnroll: true,
           registration : true,
           autoPush: true,
-          router: true,
         },
         authParams: {
           responseType: ['id_token', 'token'],
@@ -205,7 +214,8 @@ ngOnInit() {
         en: {
           'primaryauth.title': 'Set Your Password',
           'password.reset': 'Set your Password',
-          'password.reset.title': 'Set your Password'
+          'password.reset.title': 'Set your Password',
+          'password.forgot.emailSent.desc' : 'An Email has been sent to {0} with instructions on resetting your password. Click on Use Recovery Token link in the email to change your password.'
         }
       }});
       rSignIn.renderEl({

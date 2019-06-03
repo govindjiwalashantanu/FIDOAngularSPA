@@ -20,6 +20,7 @@ import {
   OktaAuthGuard,
   OktaAuthModule,
   OktaCallbackComponent,
+  OktaLoginRedirectComponent
 } from '@okta/okta-angular';
 
 import sampleConfig from './.samples.config';
@@ -47,6 +48,10 @@ const appRoutes: Routes = [
   {
     path: 'implicit/callback',
     component: OktaCallbackComponent,
+  },
+  {
+    path: 'oktaLogin',
+    component: OktaLoginRedirectComponent,
   },
   {
     path: 'login',

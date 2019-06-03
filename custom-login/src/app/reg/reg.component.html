@@ -28,7 +28,7 @@
                      <div  data-se="o-form-fieldset" class="o-form-fieldset o-form-label-top">
                         <div data-se="o-form-input-container" class="o-form-input"><span data-se="o-form-input-username" class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
                            <span class="input-tooltip icon form-help-16" data-hasqtip="0"></span> <span class="icon input-icon person-16-gray"></span>
-                           <input type="text" placeholder="Postal Code for your billing address" formControlName="postalCode" minlength="6" maxlength="6" required> </span>
+                           <input type="text" placeholder="Postal Code for your billing address" formControlName="postalCode" minlength="6" maxlength="6"  required> </span>
                            <div *ngIf="regStepOneForm.value.postalCode==''">
                              <font color="red">Postal Code is required.</font>
                            </div>
@@ -98,8 +98,6 @@
       </div>
    </div>
 </div>
-
-{{regStepTwoForm.valid}}
 
 <!--Step Three Verify Form-->
 

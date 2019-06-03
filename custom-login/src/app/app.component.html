@@ -9,6 +9,7 @@
     <a class="item" *ngIf="!isAuthenticated" routerLink="/reg/1">Register Now</a>
     <a id="messages-button" class="item" *ngIf="isAuthenticated" routerLink="/messages"><i aria-hidden="true" class="mail outline icon"></i>Messages</a>
     <a id="profile-button" class="item" *ngIf="isAuthenticated" routerLink="/profile">Profile</a>
+    <a id="logout-button" class="item" *ngIf="isAuthenticated" target="_blank" href="https://pocrogers.okta.com/home/oidc_client/0oanawqf8sp5dtfMN356/aln177a159h7Zf52X0g8">ROGERS</a>
     <a id="logout-button" class="item" *ngIf="isAuthenticated" (click)="logout()">Logout</a>
   </div>
 </div>
